@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Local Lead Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Google Maps Local Lead Finder</h1>
+            <p>Find and export local business leads accurately.</p>
+        </header>
+
+        <main>
+            <section id="setup-section" class="card">
+                <h2>New Search</h2>
+                <form id="search-form">
+                    <div class="form-group">
+                        <label for="keyword">Keyword</label>
+                        <input type="text" id="keyword" placeholder="e.g. AC Repair" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="locations">Locations (comma separated)</label>
+                        <textarea id="locations" placeholder="Dallas, Fort Worth, Austin, Addison, Pflugerville" required rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input type="checkbox" id="websites-only">
+                            <label for="websites-only">Websites Only</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="headless" checked>
+                            <label for="headless">Headless Browser</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" id="start-search-btn">START SEARCH</button>
+                </form>
+            </section>
+
+            <section id="progress-section" class="card hidden">
+                <h2>Search Progress</h2>
+                
+                <div class="status-indicator">
+                    <div class="spinner"></div>
+                    <span id="job-message">Initializing...</span>
+                </div>
+                
+                <div class="progress-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">Locations Completed</span>
+                        <span class="stat-value" id="loc-completed">0 / 0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Total Businesses</span>
+                        <span class="stat-value" id="businesses-found">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Total Websites</span>
+                        <span class="stat-value" id="websites-found">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="results-section" class="card hidden">
+                <h2>Search Completed</h2>
+                <div class="results-summary">
+                    <p id="final-summary">Found 0 businesses</p>
+                </div>
+                
+                <div class="actions-bar">
+                    <button class="btn btn-secondary" id="copy-all-btn">COPY ALL WEBSITES</button>
+                    <button class="btn btn-secondary" id="copy-full-btn">COPY FULL DATA</button>
+                    <a class="btn btn-outline" id="download-csv-btn" href="#">DOWNLOAD CSV</a>
+                    <button class="btn btn-outline" id="download-json-btn">DOWNLOAD JSON</button>
+                    <button class="btn btn-text" id="new-search-btn">New Search</button>
+                </div>
+
+                <div class="table-container">
+                    <table id="results-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Business Name</th>
+                                <th>Location</th>
+                                <th>Website</th>
+                                <th>Rating</th>
+                                <th>Reviews</th>
+                                <th>Maps</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
