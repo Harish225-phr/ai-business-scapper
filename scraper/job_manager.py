@@ -45,8 +45,7 @@ def _run_job(job_id, keyword, locations, websites_only, headless):
     all_businesses = []
     
     try:
-        with BrowserManager() as bm:
-            bm.start(headless=headless)
+        with BrowserManager(headless=headless) as bm:
             page = bm.get_new_page()
             scraper = MapsScraper(page)
             

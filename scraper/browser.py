@@ -2,12 +2,16 @@ from playwright.sync_api import sync_playwright
 from .config import Config
 
 class BrowserManager:
-    def __init__(self):
+    def __init__(self, headless=None):
         self.playwright = None
         self.browser = None
         self.context = None
+        self.init_headless = headless
     
     def start(self, headless=None):
+        if headless is None:
+            headless = self.init_headless
+        
         if self.playwright is None:
             self.playwright = sync_playwright().start()
         
