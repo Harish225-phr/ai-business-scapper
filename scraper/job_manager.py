@@ -78,7 +78,7 @@ def _run_job(job_id, keyword, locations, websites_only, headless):
                 save_job_results(job_id, all_businesses)
                 save_job_progress(job_id, state)
                 
-                time.sleep(2)
+                time.sleep(0.5)
                 
         state["message"] = "Deduplicating results..."
         save_job_progress(job_id, state)
