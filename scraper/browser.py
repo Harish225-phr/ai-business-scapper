@@ -25,7 +25,11 @@ class BrowserManager:
                 args=[
                     "--disable-blink-features=AutomationControlled",
                     "--disable-notifications",
-                    "--no-sandbox"
+                    "--no-sandbox",
+                    "--disable-dev-shm-usage",
+                    "--disable-gpu",
+                    "--disable-extensions",
+                    "--memory-pressure-off"
                 ]
             )
         

@@ -54,13 +54,15 @@ class MapsScraper:
                 
                 cards = feed.locator('div.qBF1Pd.fontHeadlineSmall').locator('..').locator('..').locator('..').locator('..')
                 
-                # To get better elements, we can look for links to places
-                items = self.page.query_selector_all('a[href*="/maps/place/"]')
+                # To get better elements, we can look for links to places, avoiding already processed ones
+                items = self.page.query_selector_all('a[href*="/maps/place/"]:not(.gmd-processed)')
                 
                 new_found = False
                 for item in items:
                     try:
                         href = item.get_attribute('href')
+                        # Mark as processed immediately
+                        item.evaluate('el => el.classList.add("gmd-processed")')
                         if href and href in unique_urls:
                             continue
                     except:
