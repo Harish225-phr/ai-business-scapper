@@ -50,6 +50,13 @@ class MapsScraper:
                 
                 new_found = False
                 for item in items:
+                    try:
+                        href = item.get_attribute('href')
+                        if href and href in unique_urls:
+                            continue
+                    except:
+                        pass
+                        
                     # The parent elements usually contain the full info
                     parent = item.evaluate_handle('el => el.closest("[role=\'article\']")')
                     if not parent:
@@ -64,6 +71,9 @@ class MapsScraper:
                                 url = data['google_maps_url']
                                 if url not in unique_urls:
                                     unique_urls.add(url)
+                                    # also add the href we found to be safe
+                                    if href:
+                                        unique_urls.add(href)
                                     businesses.append(data)
                                     new_found = True
                         except Exception as e:
