@@ -9,13 +9,22 @@ class MapsScraper:
 
     def search_location(self, keyword, location, update_progress_cb=None):
         query = f"{keyword} in {location}"
-        url = f"https://www.google.com/maps/search/{quote(query)}"
+        url = f"https://www.google.com/maps/search/{quote(query)}?hl=en&gl=us"
         
         if update_progress_cb:
             update_progress_cb(f"Navigating to {url}")
             
         try:
             self.page.goto(url, timeout=60000)
+            
+            # Handle Google consent popup that blocks the page on cloud servers
+            try:
+                consent_button = self.page.locator('button:has-text("Reject all"), button:has-text("Accept all")').first
+                if consent_button:
+                    consent_button.click(timeout=3000)
+            except:
+                pass
+                
             self.page.wait_for_selector('div[role="feed"]', timeout=30000)
         except Exception as e:
             print(f"Error navigating to {url}: {e}")

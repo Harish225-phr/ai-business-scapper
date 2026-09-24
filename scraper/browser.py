@@ -41,7 +41,12 @@ class BrowserManager:
     def get_new_page(self):
         if self.context is None:
             self.start()
-        return self.context.new_page()
+        page = self.context.new_page()
+        
+        # Block heavy resources to make it extremely fast on production (Render)
+        page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font"] else route.continue_())
+        
+        return page
     
     def stop(self):
         if self.context:
