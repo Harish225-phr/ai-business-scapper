@@ -29,7 +29,12 @@ class BrowserManager:
                     "--disable-dev-shm-usage",
                     "--disable-gpu",
                     "--disable-extensions",
-                    "--memory-pressure-off"
+                    "--memory-pressure-off",
+                    "--single-process",
+                    "--disable-site-isolation-trials",
+                    "--disable-features=IsolateOrigins,site-per-process",
+                    "--js-flags=--expose-gc",
+                    "--renderer-process-limit=1"
                 ]
             )
         
@@ -47,8 +52,8 @@ class BrowserManager:
             self.start()
         page = self.context.new_page()
         
-        # Block heavy resources to make it extremely fast on production (Render)
-        page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font"] else route.continue_())
+        # Block heavy resources and CSS to make it extremely fast and save RAM on production (Render)
+        page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet", "other"] else route.continue_())
         
         return page
     
