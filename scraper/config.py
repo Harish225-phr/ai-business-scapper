@@ -29,13 +29,13 @@ class Config:
     BROWSER_HEADLESS = get_env_bool('BROWSER_HEADLESS', False)
     
     # Search Configuration
-    MAX_RESULTS_PER_LOCATION = get_env_int('MAX_RESULTS_PER_LOCATION', 140)
+    MAX_RESULTS_PER_LOCATION = get_env_int('MAX_RESULTS_PER_LOCATION', 30)  # Reduced for speed
     MAX_CONCURRENT_LOCATIONS = get_env_int('MAX_CONCURRENT_LOCATIONS', 1)
     
     # Scrolling Settings
-    SCROLL_PAUSE = get_env_float('SCROLL_PAUSE', 0.8)
-    MAX_NO_NEW_RESULTS = get_env_int('MAX_NO_NEW_RESULTS', 3)
-    MAX_SCROLL_ATTEMPTS = get_env_int('MAX_SCROLL_ATTEMPTS', 100)
+    SCROLL_PAUSE = get_env_float('SCROLL_PAUSE', 1.5)  # Slightly increased so server doesn't skip
+    MAX_NO_NEW_RESULTS = get_env_int('MAX_NO_NEW_RESULTS', 2)  # Reduced
+    MAX_SCROLL_ATTEMPTS = get_env_int('MAX_SCROLL_ATTEMPTS', 15)  # Reduced from 100
     
     # Storage
     DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data')
