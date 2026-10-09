@@ -120,6 +120,12 @@ class MapsScraper:
                     
                 scroll_attempts += 1
                 
+                # Extreme memory saving: clear old DOM elements explicitly if possible
+                try:
+                    self.page.evaluate('window.gc && window.gc()')
+                except:
+                    pass
+                
             except Exception as e:
                 print(f"Error during scrolling: {e}")
                 break
