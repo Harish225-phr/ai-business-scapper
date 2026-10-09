@@ -105,8 +105,7 @@ def _run_job(job_id, keyword, locations, websites_only, headless):
         save_job_progress(job_id, state)
 
 def get_job_status(job_id):
-    if job_id in jobs:
-        return jobs[job_id]
+    # Always load from storage to ensure cross-worker synchronization
     state = load_job_progress(job_id)
     if state:
         jobs[job_id] = state
